@@ -16,3 +16,4 @@ if __name__ == "__main__":
     print(data.raw_data)
     data.sum_plot()
     data.current_pieChart()
+    data.total_pieChart()

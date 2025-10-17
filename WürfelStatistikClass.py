@@ -6,7 +6,7 @@ locale.setlocale(locale.LC_TIME, "deu_deu")
 class StatsClass:
     def __init__(self, path2csv):
         self.raw_data = pd.read_csv(path2csv)
-        self.raw_data["Datum"] = pd.to_datetime(self.raw_data["Datum"], format="%d. %B %Y")
+        self.raw_data["Datum"] = pd.to_datetime(self.raw_data["Datum"], format="mixed")
         self.raw_data["Nat20"] = pd.to_numeric(self.raw_data["Nat20"])
         self.raw_data["Nat1"] = pd.to_numeric(self.raw_data["Nat1"])
 
@@ -46,5 +46,22 @@ class StatsClass:
             plt.title(f"Aktuelles Verhältnis Nat1/Nat20 für {name}")
             plt.show()
 
+    def total_pieChart(self):
+        labels = []
+        total = []
 
+        for name in pd.unique(self.raw_data["Spieler"]):
+            df = self.raw_data[self.raw_data["Spieler"] == name]
+            total.append(df["Nat1"].sum() + df["Nat20"].sum())
+            labels.append(name)
+
+        def autopct_abs(pct):
+            totale = sum(total)
+            absolute = int(round(pct * totale / 100.0))
+            return f"{pct:.1f}% ({absolute})"
+
+        plt.figure(figsize=(5,5))
+        plt.pie(total, labels=labels, autopct=autopct_abs)
+        plt.title("Gesamte Wüfelverteilung")
+        plt.show()
 
