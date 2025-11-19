@@ -10,7 +10,6 @@ def choose_file():
     return path
 
 if __name__ == "__main__":
-    # Beispiel: wahlweise Datei oder Ordner
     file_path = choose_file()
     data = StatsClass(file_path)
     print(data.raw_data)
