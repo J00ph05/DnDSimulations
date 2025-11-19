@@ -49,6 +49,7 @@ if __name__ == "__main__":
     <style>
     body {{
       font-family: sans-serif;
+      background-color: white;
       margin: 60px;
     }}
     .row {{
